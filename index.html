@@ -4,9 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Last Garden</title>
-  </head>
+    <link rel="stylesheet" href="css/style.css" />
+    </head>
   <body>
-    <div id="game-container"></div>
+    <div id = "full-screen">
+      <div id = "title">
+        <h1>The Last Garden</h1>
+        <h2>By: Satvik Nagpal</h2>
+      </div>
+      <div id = "UI">
+        <div id = "player-stats">
+          <div id = "player-health">
+            <h3>Health: </h3>
+            <div id = "health-bar">
+              <div id = "health-bar-fill"></div>
+            </div>
+          </div>
+          <div id = "player-attack">
+            <h3>Attack: </h3>
+            <div id = "attack-bar">
+              <div id = "attack-bar-fill"></div>
+            </div>
+          </div>
+          <div id = "player-defense">
+            <h3>Defense: </h3>
+            <div id = "defense-bar">
+              <div id = "defense-bar-fill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <canvas id="game-container"></canvas>
+      
+    </div>
     <script type="module" src="js/main.js"></script>
   </body>
 </html>
