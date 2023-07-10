@@ -18,6 +18,10 @@ export default class Player{
         this.scene.add(this.player);
 
         this.player.position.set(0, 0, 0);
+        this.setPlayerStats();
+    }
+
+    setPlayerStats(){
         this.playerStats.health = 100;
         this.playerStats.maxHealth = 100;
         this.playerStats.HPRegeneration = 0;
@@ -40,6 +44,8 @@ export default class Player{
             armor: null,
             accessory: null
         };
+
+
     }
 
     update(){
