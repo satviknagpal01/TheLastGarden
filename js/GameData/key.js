@@ -16,23 +16,31 @@ const key = {
     DOWN: 40,
     LEFT: 37,
     RIGHT: 39,
-
+  
     // Key States
     _pressed: {},
-
+  
     // Key Actions
-    isDown: function(keyCode) {
-        return this._pressed[keyCode];
+    isDown: function (keyCode) {
+      return this._pressed[keyCode];
     },
-
+  
     // Key Events
-    onkeydown: function(event) {
-        this._pressed[event.keyCode] = true;
+    onKeyDown: function (event) {
+      this._pressed[event.keyCode] = true;
     },
-
-    onkeyup: function(event) {
-        delete this._pressed[event.keyCode];
-    }
-};
-
-export default key;
+  
+    onKeyUp: function (event) {
+      delete this._pressed[event.keyCode];
+    },
+  
+    init: function () {
+      document.addEventListener('keydown', this.onKeyDown.bind(this));
+      document.addEventListener('keyup', this.onKeyUp.bind(this));
+    },
+  };
+  
+  key.init();
+  
+  export default key;
+  

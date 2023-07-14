@@ -1,45 +1,54 @@
 import * as THREE from 'three';
 
+import playerStats from './GameData/playerStats';
+import Player from './Components/Player';
+
+import key from './GameData/key';
+
 class Game {
-    constructor() {
-        this.container = document.getElementById('game-container');
-        this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 1000);
-        this.renderer = new THREE.WebGLRenderer();
+  constructor() {
+    this.canvas = document.getElementById('game-container');
+    this.renderer = new THREE.WebGLRenderer({
+      canvas: this.canvas,
+      antialias: true,
+    });
+    this.scene = new THREE.Scene();
+    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-        this.onWindowResize = this.onWindowResize.bind(this); // Bind the method here
+    this.camera.position.z = 5;
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
 
-        window.addEventListener('resize', this.onWindowResize);
-    }
+    this.onWindowResize = this.onWindowResize.bind(this);
+    window.addEventListener('resize', this.onWindowResize);
+  }
 
-    start() {
-        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-        this.container.appendChild(this.renderer.domElement);
+  start() {
+    this.playerStats = playerStats;
+    this.key = key;
+    this.player = new Player(this.scene, this.camera, this.renderer, this.playerStats,this.key);
 
-        const geometry = new THREE.BoxGeometry();
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        const cube = new THREE.Mesh(geometry, material);
-        this.scene.add(cube);
+    this.gameLoop();
+  }
 
-        this.camera.position.z = 5;
+  update() {
+    this.player.update();
+  }
 
-        const animate = () => {
-            requestAnimationFrame(animate);
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
-            this.renderer.render(this.scene, this.camera);
-        };
+  render() {
+    this.renderer.render(this.scene, this.camera);
+  }
 
-        animate();
-    }
+  gameLoop = () => {
+    requestAnimationFrame(this.gameLoop);
+    this.render();
+    this.update();
+  };
 
-    onWindowResize() {
-        this.container = document.getElementById('game-container');
-        this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
-        this.camera.updateProjectionMatrix();
-        console.log(this.container.clientWidth, this.container.clientHeight);
-        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-    }
+  onWindowResize() {
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+  }
 }
 
 export default Game;

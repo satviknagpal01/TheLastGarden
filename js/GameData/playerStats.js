@@ -2,6 +2,7 @@ const playerStats = {
     health: 100,
     maxHealth: 100,
     HPRegeneration: 0,
+    stamina: 100,
     lifeSteal: 0,
     damage: 10,
     attackSpeed: 1,
@@ -17,7 +18,6 @@ const playerStats = {
     luck: 0,
     inventory: [],
     equipped: {
-        weapon: null,
         armor: null,
         accessory: null
     }

@@ -1,18 +1,19 @@
 import * as THREE from 'three';
 
 export default class Player{
-    constructor(scene, camera, renderer, playerStats){
+    constructor(scene, camera, renderer, playerStats,key){
         this.scene = scene;
         this.camera = camera;
         this.renderer = renderer;
         this.player = null;
         this.playerStats = playerStats;
-        this.init();
+		this.key = key;
+        this.start();
     }
 
-    init(){
+    start(){
         this.player = new THREE.Sprite(
-            new THREE.MeshBasicMaterial({color: 0x00ff00})
+            new THREE.MeshBasicMaterial({color: 0x00fff0})
         );
 
         this.scene.add(this.player);
@@ -25,6 +26,7 @@ export default class Player{
         this.playerStats.health = 100;
         this.playerStats.maxHealth = 100;
         this.playerStats.HPRegeneration = 0;
+        this.playerStats.stamina = 100;
         this.playerStats.lifeSteal = 0;
         this.playerStats.damage = 10;
         this.playerStats.attackSpeed = 1;
@@ -40,14 +42,49 @@ export default class Player{
         this.playerStats.luck = 0;
         this.playerStats.inventory = [];
         this.playerStats.equipped = {
-            weapon: null,
             armor: null,
             accessory: null
         };
+    }
 
+	playerMove(){
+        this.direction = new THREE.Vector3();
+		if(this.key.isDown(this.key.W)){
+			this.direction.y += 1;
+		}
+		if(this.key.isDown(this.key.S)){
+			this.direction.y -= 1;
+		}
+		if(this.key.isDown(this.key.A)){
+			this.direction.x -= 1;
+		}
+		if(this.key.isDown(this.key.D)){
+			this.direction.x += 1;
+		}
+        this.direction.normalize();
+        this.direction.multiplyScalar(this.playerStats.Speed / 20);
+        this.player.position.add(this.direction);
+	}
 
+    playerAttack(){
+        this.direction = new THREE.Vector3();
+        if(this.key.isDown(this.key.UP)){
+            this.direction.y += 1;
+        }
+        if(this.key.isDown(this.key.DOWN)){
+            this.direction.y -= 1;
+        }
+        if(this.key.isDown(this.key.LEFT)){
+            this.direction.x -= 1;
+        }
+        if(this.key.isDown(this.key.RIGHT)){
+            this.direction.x += 1;
+        }
+        this.direction.normalize();
+        this.direction.multiplyScalar(this.playerStats.Speed / 10);
     }
 
     update(){
+		this.playerMove();
     }
 }

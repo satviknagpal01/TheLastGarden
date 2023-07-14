@@ -1,41 +1,4 @@
 const items = {
-    // weapons
-    sword: {
-        name: "Sword",
-        type: "weapon",
-        damage: 10,
-        attackSpeed: 1,
-        range: 1,
-        CritChance: 0,
-        CritDamage: 1.5,
-    },
-    dagger: {
-        name: "Dagger",
-        type: "weapon",
-        damage: 5,
-        attackSpeed: 2,
-        range: 1,
-        CritChance: 0,
-        CritDamage: 1.5,
-    },
-    bow: {
-        name: "Bow",
-        type: "weapon",
-        damage: 15,
-        attackSpeed: 1,
-        range: 5,
-        CritChance: 0,
-        CritDamage: 1.5,
-    },
-    staff: {
-        name: "Staff",
-        type: "weapon",
-        damage: 20,
-        attackSpeed: 1.5,
-        range: 8,
-        CritChance: 0,
-        CritDamage: 1.5,
-    },
     // armor
     leatherArmor: {
         name: "Leather Armor",
